@@ -1,0 +1,17 @@
+lt-0a105146af49f2294
+subnet-0a5ae0f9e98d69056
+subnet-086c2eb5c6de44cbe
+subnet-0078120d1473b505a
+#!/bin/bash
+I=1
+sgids='sg-063853fc9b1c3325f'
+for subnet in 'subnet-0a5ae0f9e98d69056' 'subnet-086c2eb5c6de44cbe' 'subnet-0078120d1473b505a'
+do
+    echo "Creating EC2 Instance in $subnet ..."
+    aws ec2 run-instances --instance-type t2.micro --launch-template LaunchTemplateId=lt-0a105146af49f2294 --security-group-ids $sgids --subnet-id $subnet --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=launch-Template-'${I}'}]' 
+    echo "Created EC2 Machine with the name Testserver-${I}"
+    I=$((I+1))
+done
+
+
+sg-063853fc9b1c3325f
